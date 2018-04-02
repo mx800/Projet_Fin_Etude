@@ -1,0 +1,210 @@
+﻿<!-----------------------------------------------------------------
+----Description: Page pour la gestion et la consultation des clients.
+----Fait par : Maxime Savard et Keven Maltais
+----Le: 2018-02-26
+----Révisé le:___________
+------------------------------------------------------------------>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-info box-shadow">
+                <div class="box-header with-border">
+                    <span class="col-lg-12 col-md-12 col-sm-12" style="padding-right:20px;font-weight:bold; font-size:20px">Fiche Client<button type="button" class="btn btn-danger pull-right" style="margin:3px;width:90px" ng-click="fermer()">Fermer</button></span>
+                </div>
+                <!-- /.box-header -->
+                <form class="form-horizontal" name="myForm">
+                    <div class="box-body">
+                        <!-- /.box-header -->
+                        <div class="form-group form-group-sm col-md-12 row" style="margin-top:10px;">
+                            <div class="form-check" style="margin-left:10px">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" ng-disabled="!modeModifier" ng-click="actifFunction()" ng-checked="Client.Actif == 1"> Actif
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm col-md-5 row">
+                            <div class="box-body row">
+                                <label class="col-sm-2 control-label">Nom</label>
+                                <div class="col-sm-10">
+                                    <input id="Nom" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" ng-pattern="NomRegex" required name="Nom" class="form-control ng-pristine" ng-model="Client.Nom">
+                                    <span style="color:red" ng-messages="myForm.Nom.$error" ng-show="myForm.Nom.$dirty">
+                                        <span ng-show="myForm.Nom.$error.required">Nom obligatoire!</span>
+                                        <span ng-show="myForm.Nom.$error.pattern">Utilisation de caractêres invalides!</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-2 control-label">Prénom</label>
+                                <div class="col-sm-10">
+                                    <input id="Prenom" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" ng-pattern="PrenomRegex" required name="Prénom" class="form-control ng-pristine" ng-model="Client.Prenom">
+                                    <span style="color:red" ng-messages="myForm.Prenom.$error" ng-show="myForm.Prenom.$dirty">
+                                        <span ng-show="myForm.Prenom.$error.required">Prénom obligatoire!</span>
+                                        <span ng-show="myForm.Prenom.$error.pattern">Utilisation de caractêres invalides!</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-2 control-label">Adresse</label>
+                                <div class="col-sm-10">
+                                    <input id="Adresse" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" ng-minlength="2" ng-maxlength="150" ng-pattern="AdresseRegex" required name="Adresse" class="form-control ng-pristine" ng-readonly="!modeModifier" ng-model="Client.Adresse">
+                                    <span style="color:red" ng-messages="myForm.Adresse.$error" ng-show="myForm.Adresse.$dirty">
+                                        <span ng-show="myForm.Adresse.$error.required">adresse obligatoire!</span>
+                                        <span ng-show="myForm.Adresse.$error.pattern">Utilisation de caractêres invalides!</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <table class="col-md-12">
+                                    <tr>
+                                        <th>
+                                            <div class="col-md-12">
+                                                <label class="control-label" style="margin-left:8px">Code Postal</label>
+                                                <input ui-mask="A9A-9A9" ng-minlength="7" name="Code_Postal" class="form-control" ng-readonly="!modeModifier" ng-model="Client.Code_Postal">
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="col-md-12">
+                                                <label class="control-label">Ville</label>
+                                                <input id="Ville" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" ng-pattern="NomRegex" required name="Ville" class="form-control ng-pristine" ng-readonly="!modeModifier" ng-model="Client.Ville">
+                                                <span style="color:red" ng-messages="myForm.Ville.$error" ng-show="myForm.Ville.$dirty">
+                                                    <span ng-show="myForm.Ville.$error.required">Ville obligatoire!</span>
+                                                    <span ng-show="myForm.Ville.$error.pattern">Utilisation de caractêres invalides!</span>
+                                                </span>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="margin-top: 20px">
+                                <textarea class="form-control" rows="3" ng-readonly="!modeModifier" placeholder="Note" ng-model="Client.Note"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm col-md-6 row">
+                            <div class="box-body row">
+                                <label class="col-sm-3 control-label">Téléphone Principal</label>
+                                <div class="col-sm-9">
+                                    <input id="Telephone" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" required ui-mask="(999) 999-9999" name="Telephone" class="form-control ng-pristine" ng-readonly="!modeModifier" ng-model="Client.Telephone_Principal">
+                                    <span style="color:red" ng-messages="myForm.Telephone.$error" ng-show="myForm.Telephone.$dirty">
+                                        <span ng-show="myForm.Telephone.$error.required">Téléphone obligatoire!</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-3 control-label">Téléphone Secondaire</label>
+                                <div class="col-sm-9">
+                                    <input ui-mask="(999) 999-9999" class="form-control" ng-readonly="!modeModifier" ng-model="Client.Telephone_Secondaire">
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-3 control-label">Référé Par</label>
+                                <div class="col-sm-9">
+                                    <input ng-pattern="NomRegex" name="Referer_Par" class="form-control" ng-readonly="!modeModifier" ng-model="Client.Referer_Par">
+                                    <span style="color:red" ng-messages="myForm.Referer_Par.$error" ng-show="myForm.Referer_Par.$dirty">
+                                        <span ng-show="myForm.Referer_Par.$error.pattern">Utilisation de caractêres invalides!</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-3 control-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" name="Email" class="form-control" ng-readonly="!modeModifier" ng-model="Client.Email" ng-pattern="EmailRegex">
+                                    <span style="color:red" ng-messages="myForm.Email.$error" ng-show="myForm.Email.$dirty">
+                                        <span ng-show="myForm.Email.$error.pattern">Adresse email invalide.</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-3 control-label">Acomba</label>
+                                <div class="col-sm-9">
+                                    <input id="Num_Acomba" name="Num_Acomba" type="text" class="form-control" ng-readonly="!modeModifier" ng-model="Client.Num_Acomba">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <!-- /.box -->
+                        <div class="form-group form-group-sm col-md-1 row" style="margin-left:20px; margin-top:10px">
+                            <button type="button" class="btn btn-primary col-md-12" style="margin:3px;width:90px" ng-click="modifierFunction()" ng-disabled="modeModifier">Modifier</button>
+                            <!--<button type="button" class="btn btn-danger col-md-12" style="margin:3px" ng-disabled="modeModifier">Suprimer</button>-->
+                            <button type="button" class="btn btn-warning col-md-12" style="margin:3px;width:90px" ng-click="annulerFunction()" ng-disabled="!modeModifier">Annuler</button>
+                            <button type="button" class="btn btn-success col-md-12" style="margin:3px;width:90px" ng-click="enregistrerFunction()" ng-disabled="!modeModifier || !myForm.$valid">Enregistrer</button>
+                            <button type="button" class="btn btn-primary col-md-12" style="margin:3px;width:90px" ng-click="ListeRDV()" ng-hide="nouveauClient" ng-disabled="modeModifier">Liste RDV</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.box-body -->
+            <div class="box box-info box-shadow">
+                <div class="box-header">
+                    <div class="row">
+                        <div style="margin-left:20px">
+                            <span style="padding-right:20px;font-weight:bold; font-size:20px">Animaux</span>
+                            <button type="button" class="btn btn-success" ng-disabled="nouveauClient" ng-click="newanimalFunction()">+ Ajouter Animal</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="animal in Animals">
+                            <table class="table" style="background-color:dimgrey; color:white">
+                                <tr>
+                                    <th>
+                                        <div class="col-md-12" style="font-size:15px">
+                                            <span style="padding-right:20px; font-size:20px">{{animal.Nom_Animal}}</span>
+                                            <button class="btn btn-primary" type="button" ng-click="ficheAnimalFunction(animal.No_Animal)">Consulter Fiche Animal</button>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th style="background-color:lightgray; color:black">Rendez-Vous Futur</th>
+                                </tr>
+                            </table>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Date</th>
+                                            <th style="width:10px" scope="col">Heure</th>
+                                            <th scope="col">Services</th>
+                                            <th scope="col">#Traitement</th>
+                                            <th scope="col">Détails</th>
+                                            <th style="text-align:center" scope="col">Consulter</th>
+                                            <th style="text-align:center" scope="col">Supprimer</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="rdv in animal.Rdv | orderBy:'Date_Rdv'">
+                                            <th scope="row">{{rdv.Date_Rdv}}</th>
+                                            <td>{{rdv.Heure_Debut.slice(0,5)}} {{rdv.Heure_Fin.slice(0,5)}}</td>
+                                            <td><div ng-repeat="serv in rdv.Service"><div>{{serv.Nom_Service}}</div></div></td>
+                                            <td><div ng-repeat="serv in rdv.Service"><div ng-show="serv.No_Service==1">{{serv.Date_Detail}}</div></div></td>
+                                            <td><textarea class="form-control" style="min-width:200px" rows="1" placeholder="Entrer ..." ng-model="rdv.Details" maxlength="255" readonly></textarea></td>
+                                            <td style="text-align:center"><button class="btn btn-primary" ng-click="loadrdvFunction($event, rdv,animal, 'RDV')" type="button">Consulter RDV</button></td>
+                                            <td style="text-align:center"><button class="btn btn-danger" ng-click="supprimerRdvFunction(rdv, animal)" confirm="Voulez-vous supprimer ce Rendez-vous? {{rdv.Date_Rdv}} à {{rdv.Heure_Debut }}" type="button">-</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <button type="button" class="btn btn-success" ng-click="loadrdvFunction($event, {}, animal, 'animal')">+ Ajouter RDV</button>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+

@@ -1,0 +1,204 @@
+﻿<!-----------------------------------------------------------------
+----Description: Page principale de notre projet qui comprend le
+----side menu, le top menu et le pied de page du site.
+----Fait par : Maxime Savard et Keven Maltais
+----Le: 2018-02-26
+----Révisé le:___________
+------------------------------------------------------------------>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="http://localhost/BeauteMiaouf/" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Beauté MiaOuf</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link href="style/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="style/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Ionicons -->
+    <link href="style/ionicons.min.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link href="style/AdminLTE.min.css" rel="stylesheet" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+    folder instead of downloading all of them to reduce the load. -->
+    <link href="style/_all-skins.min.css" rel="stylesheet" />
+    <!-- Morris chart -->
+    <link href="style/morris.css" rel="stylesheet" />
+    <!-- jvectormap -->
+    <link href="style/jquery-jvectormap.css" rel="stylesheet" />
+    <!-- Date Picker -->
+    <link href="style/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <!-- Daterange picker -->
+    <link href="style/daterangepicker.css" rel="stylesheet" />
+    <link href="style/angular-material.css" rel="stylesheet" />
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link href="style/ui-bootstrap-csp.css" rel="stylesheet" />
+    <link href="style/bootstrap3-wysihtml5.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link href="style/style.css" rel="stylesheet" />
+    <link href="style/angular-tooltips.css" rel="stylesheet" />
+
+    <!-- Pour le calendrier -->
+    <link href="style/fullcalendar.css" rel="stylesheet" />
+    <link href="style/texte.css" rel="stylesheet" />
+    <script src="script/moment.js"></script>
+    <script src="script/jquery-1.11.3.js"></script>
+    <script src="script/angular.js"></script>
+    <script src="script/calendar.js"></script>
+    <script src="script/fullcalendar.js"></script>
+    <script src="script/gcal.js"></script>
+
+    <script src="script/angular-cookies.js"></script>
+    <script src="script/angular-animate.js"></script>
+    <script src="script/angular-aria.js"></script>
+    <script src="script/angular-messages.js"></script>
+    <script src="script/angular-material.js"></script>
+    <script src="script/ui-bootstrap.js"></script>
+    <script src="script/ui-bootstrap-tpls.js"></script>
+    <script src="script/angular-route.js"></script>
+    <script src="script/paging.js"></script>
+    <script src="script/mask.js"></script>
+    <script src="script/angular-confirm.js"></script>
+    <script src="script/angular-OkModal.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/controllers.js"></script>
+
+</head>
+
+<body ng-app="myApp" class="hold-transition skin-blue sidebar-mini">
+    <header ng-cloak ng-show="IsConnected" class="main-header">
+        <!-- Logo -->
+        <!-- Header Navbar: style can be found in header.less -->
+        <a class="navbar-brand logo" href="#"><b>Beauté </b>Mia Ouf </a>
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"></a>
+        </nav>
+    </header>
+
+
+    <!-- Menu de coté -->
+    <aside ng-cloak ng-show="IsConnected" class="main-sidebar sidenav">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <img class="img-responsive" src="images/login.png">
+            </div>
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu tree" data-widget="tree">
+                <li class="header">NAVIGATION</li>
+                <li>
+                    <a href="Menu"><i class="fa fa-dashboard"></i><span>Menu principale</span></a>
+                </li>
+                <li>
+                    <a href="RechercheClients"><i class="fa fa-address-card-o"></i> <span>Clients</span></a>
+                </li>
+                <li>
+                    <a href="RechercheAnimaux"><i class="fa fa-paw"></i> <span>Animaux</span></a>
+                </li>
+                <li>
+                    <a href="RechercheRDV"><i class="fa fa-thumb-tack"></i> <span>Rendez-vous</span></a>
+                </li>
+                <li>
+                    <a href="Calendrier"><i class="fa fa-calendar"></i><span>Calendrier</span></a>
+                </li>
+                <li>
+                    <a href="Anniversaire"><i class="fa fa-birthday-cake"></i><span>Anniversaire</span></a>
+                </li>
+                <li>
+                    <a href="ListeAttente"><i class="fa fa-edit"></i><span>Liste d’attente</span></a>
+                </li>
+            </ul>
+            <ul class="sidebar-menu" data-widget="tree">
+                <li style="margin-top: 200px" class="header">OUTILS</li>
+                <li>
+                    <div>
+                        <a href="ParametreGeneraux"><i class="fa fa-cog fa-fw text-yellow" aria-hidden="true"></i><span>&nbsp; Paramètres</span></a>
+                    </div>
+                </li>
+                <li ng-controller="menuCtrl" ng-click="postSave()">
+                    <div confirm="Voulez-vous effectuer une sauvegarde?" style="margin-left:3px">
+                        <a href=""><i class="fa fa-database text-blue" aria-hidden="true"></i><span>&nbsp; Sauvegarde</span></a>
+                    </div>
+                </li>
+                <li>
+                    <div style="margin-left:3px">
+                        <a href="Quitter"><i class="fa fa-sign-out text-red" aria-hidden="true"></i><span>&nbsp; Quitter</span></a>
+                    </div>
+                </li>
+                <li>
+                    <span></span>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+
+
+    <!--Contenu des pages-->
+    <div ng-class="IsConnected ? 'content-wrapper' : '' " style="height:100%">
+        <div ng-view style="padding-bottom:100px"></div>
+    </div>
+
+
+
+    <!--Pied de page-->
+    <footer ng-hide="!IsConnected" class="main-footer footer navbar-fixed-bottom">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 1
+        </div>
+        <strong>Copyright &copy; 2017-2018 Maxime Savard et Keven Maltais</strong> Tous droits réservés
+    </footer>
+
+
+
+
+
+    <div class="control-sidebar-bg"></div>
+</body>
+<!--Balise scripts-->
+</html>
+<script src="script/angular-tooltips.js"></script>
+<script src="script/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="script/jquery-ui.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="script/bootstrap.min.js"></script>
+<!-- Morris.js charts -->
+<script src="script/raphael.min.js"></script>
+<script src="script/morris.min.js"></script>
+<!-- Sparkline -->
+<script src="script/jquery.sparkline.min.js"></script>
+<!-- jvectormap -->
+<script src="script/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="script/jquery-jvectormap-world-mill-en.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="script/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="script/moment.min.js"></script>
+<script src="script/daterangepicker.js"></script>
+<!-- datepicker -->
+<script src="script/bootstrap-datepicker.min.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="script/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="script/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="script/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="script/adminlte.min.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+
+<script src="script/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="script/demo.js"></script>

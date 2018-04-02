@@ -1,0 +1,173 @@
+﻿<!-----------------------------------------------------------------
+----Description: Fenetre qui sert a la gestion des rendez-vous.
+----Fait par : Maxime Savard et Keven Maltais
+----Le: 2018-02-26
+----Révisé le:___________
+------------------------------------------------------------------>
+
+<md-dialog aria-label="Gestion RDV">
+    <form ng-cloak name="myForm">
+        <md-toolbar>
+            <table class="table" style="height:27px">
+                <tbody style=" height:27px">
+                    <tr style="font-weight:bold; font-size:25px; height:27px">
+                        <td><span style="font-size:3vmin">Gestion des Rendez-vous</span></td>
+                        <td class="text-right"><button type="button" class="btn btn-danger" ng-click="cancel('useful')">Fermer</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-toolbar>
+        <md-dialog-content>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><p class="pull-right" style="font-weight:bold">Client:</p></td>
+                        <td><input type="text" class="form-control col-md-3" ng-model="Client.No_Client" ng-value="Client.Prenom + ' ' + Client.Nom" readonly required></td>
+                        <td><button class="btn btn-success" ng-click="clientSelectionFunction($event)" ng-disabled="Client.No_Client!=null">Recherche</button></td>
+                        <td><p class="pull-right" style="font-weight:bold">Date:</p></td>
+                        <td><input required type="date" min="{{date_min | date: 'yyyy-MM-dd'}}" class="form-control col-md-3" ng-model="date_show" ng-change="dayRdvFunction()"></td>
+                    </tr>
+                    <tr>
+                        <td><p class="pull-right" style="font-weight:bold">Animal:</p></td>
+                        <td><input type="text" class="form-control col-md-3" ng-model="Animal.No_Animal" ng-value="Animal.Nom_Animal" readonly required></td>
+                        <td><button class="btn btn-success" ng-click="animalSelectionFunction($event)" ng-disabled="Animal.No_Animal!=null || Client.No_Client==null">Recherche</button></td>
+                        <td>
+                            <p class="pull-right" style="font-weight:bold">Heure Début:</p>
+                        </td>
+                        <td>
+                            <div style="min-width:200px">
+                                <div class="col-md-5">
+                                    <input ng-required="isRequired" style="min-width:70px; max-width:70px" type="number" max="16" min="8" class="form-control col-md-3" ng-model="Heure_Debut" ng-value="RDV.Heure_Debut.slice(0, 2)">
+                                </div>
+                                <div class="col-md-1">
+                                    <label style="margin-top:5px" class="control-label">:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input ng-required="isRequired" style="min-width:70px; max-width:70px" type="number" max="55" min="0" step="5" class="form-control col-md-3" ng-model="Min_Debut" ng-value="RDV.Heure_Debut.slice(3, 5)">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p class="pull-right" style="font-weight:bold">Commentaire:</p></td>
+                        <td colspan="2"><textarea class="form-control" rows="3" placeholder="Entrer ..." maxlength="255" ng-model="RDV.Details"></textarea></td>
+                        <td>
+                            <p class="pull-right" style="font-weight:bold">Heure Fin:</p>
+                        </td>
+                        <td>
+                            <div style="min-width:200px">
+                                <div class="col-md-5">
+                                    <input ng-required="isRequired" style="min-width:70px; max-width:70px" type="number" max="17" min="8" class="form-control col-md-3" ng-model="Heure_Fin" ng-value="RDV.Heure_Fin.slice(0, 2)">
+                                </div>
+                                <div class="col-md-1">
+                                    <label style="margin-top:5px" class="control-label">:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input ng-required="isRequired" style="min-width:70px; max-width:70px" type="number" max="55" min="0" step="5" class="form-control col-md-3" ng-model="Min_Fin" ng-value="RDV.Heure_Fin.slice(3, 5)">
+                                </div>
+                            </div>
+                            <div class="col-md-2" style="margin-left:35px;margin-top:15px">
+                                <button style="min-width:60px;max-width:60px;text-align:center" ng-click="addHeure('matin')" class="btn btn-success">Matin</button>
+                            </div>
+                            <div class="col-md-2" style="margin-left:35px;margin-top:15px">
+                                <button style="min-width:60px;max-width:60px;text-align:center" ng-click="addHeure('midi')" class="btn btn-success">Midi</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p class="pull-right" style="font-weight:bold">Type:</p></td>
+                        <td><div class="col-md-4"><input class="form-control" type="text" ng-model="Animal.Type" readonly /></div></td>
+                        <td></td>
+                        <td><p class="pull-right" style="font-weight:bold" ng-if="Animal.Comportement!=null">Comportement:</p></td>
+                        <td><div class="col-md-10"><input type="text" class="form-control col-md-3" ng-if="Animal.Comportement!=null" ng-style="Animal.Comportement=='V'? {'background-color':'green'}: Animal.Comportement=='R'? {'background-color':'red'}: {'background-color':'yellow'}" readonly></div></td>
+                    </tr>
+                    <tr>
+                        <td><p class="pull-right" style="font-weight:bold">Service:</p></td>
+                        <td>
+                            <div class="col-md-10" style="min-width:200px">
+                                <select class="form-control col-md-6" ng-hide="RDV.Service.length>=5" ng-options="servRestant.No_Service as servRestant.Nom_Service for servRestant in Service" ng-model="selectionService"></select>
+                            </div>
+                            <div class="col-md-1" style="margin-bottom:6px">
+                                <button ng-click="addServiceFunction()" ng-hide="RDV.Service.length>=5" style="width:35px" class="btn btn-success">+</button>
+                            </div>
+                            <div ng-repeat="serv in RDV.Service">
+                                <div class="col-md-10" style="min-width:200px">
+                                    <input class="form-control col-md-6" ng-model="serv.Nom_Service" readonly>
+                                </div>
+                                <div class="col-md-1" style="margin-bottom:6px">
+                                    <button ng-click="deleteServiceFunction(serv)" style="width:35px" class="btn btn-danger">-</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><p class="pull-right" style="font-weight:bold" ng-repeat="serv in RDV.Service" ng-if="serv.No_Service==1">Détail du traitement:</p></td>
+                        <td>
+                            <div ng-repeat="serv in RDV.Service" ng-if="serv.No_Service==1">
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control col-md-3" nom="date" readonly ng-model="serv.Date_Detail">
+                                </div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-success" ng-click="detailSelectionFunction($event)" ng-show="serv.No_Service==1">Choisir</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button style="margin-left:5px;width:90px" ng-disabled="newRDV==true" type="submit" ng-click="supprimer('supprimer')" class="btn btn-danger col-md-5" confirm="Voulez-vous supprimer ce Rendez-vous? {{RDV.Date_Rdv = date_show.getFullYear() + '-' + (date_show.getMonth() + 1) + '-' + date_show.getDate()}} à {{RDV.Heure_Debut }}">Supprimer</button>
+                            <button style="margin-left:5px;width:90px" type="submit" ng-click="cancel('annuler')" class="btn btn-warning col-md-5">Annuler</button>
+                            <button type="submit" ng-disabled="RDV.Service.length==0 || disableFunction() || !myForm.$valid" ng-click="answer('enregistrer')" style="margin-left:5px;width:90px" class="btn btn-primary col-md-6">Enregistrer</button>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <md-toolbar ng-hide="date_show==null">
+                <table class="table" style="height:27px">
+                    <tbody style="height:27px">
+                        <tr style="font-weight:bold; font-size:25px; height:27px">
+                            <td>
+                                <div class="col-md-12">
+                                    <span style="font-size:3vmin">Animaux cédulés pour la journée:</span>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="date" style="max-width:150px;min-width:150px;margin-top:5px" readonly class="form-control" ng-model="date_show">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-toolbar>
+            <table ng-hide="date_show==null" class="table table-striped">
+                <thead style="background-color:#000000; color:white">
+                    <tr>
+                        <th class="col-md-2">Nom animal</th>
+                        <th class="col-md-3">Comportement</th>
+                        <th class="col-md-3">Type</th>
+                        <th class="col-md-3">Début</th>
+                        <th class="col-md-3">Fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="animal in DayRDV">
+                        <td>{{animal.Nom_Animal}}</td>
+                        <td><div class="col-md-10"><input type="text" class="form-control col-md-3" ng-style="animal.Comportement=='V'? {'background-color':'green'}: animal.Comportement=='R'? {'background-color':'red'}: {'background-color':'yellow'}" readonly></div></td>
+                        <td>{{animal.Type}}</td>
+                        <td><input style="max-width:62px" type="text" readonly class="form-control col-md-3" ng-model="animal.Heure_Debut" ng-value="animal.Heure_Debut"></td>
+                        <td><input style="max-width:62px" type="text" readonly class="form-control col-md-3" ng-model="animal.Heure_Fin" ng-value="animal.Heure_Fin"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-dialog-content>
+    </form>
+</md-dialog>

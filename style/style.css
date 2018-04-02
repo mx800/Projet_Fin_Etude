@@ -1,0 +1,368 @@
+﻿.sidenav {
+    height: 100%;
+    overflow:auto;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 50px;
+
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    color: #818181;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin-left: 230px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+
+
+.selected {
+    font-weight: bold;
+}
+
+textarea {
+    resize: none;
+}
+
+.listeBlue {
+    background-color: aliceblue;
+}
+
+.table:hover {
+    cursor: pointer;
+}
+.BackGroundLogin{
+    position:absolute;
+    width:100%;
+    height:1000px;
+    background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+}
+
+/*
+ * Specific styles of signin component
+ */
+/*
+ * General styles
+ */
+/*body, html {
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+}*/
+
+.card-container.card {
+    max-width: 350px;
+    padding: 40px 40px;
+}
+
+.btn {
+    font-weight: 700;
+    height: 36px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+/*
+ * Card component
+ */
+.card {
+    background-color: #F7F7F7;
+    /* just in case there no content*/
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    margin-top: 50px;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.profile-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+/*
+ * Form styles
+ */
+.profile-name-card {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0 0;
+    min-height: 1em;
+}
+
+.reauth-email {
+    display: block;
+    color: #404040;
+    line-height: 2;
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.form-signin #inputEmail,
+.form-signin #inputPassword {
+    direction: ltr;
+    height: 44px;
+    font-size: 16px;
+}
+
+.form-signin input[type=email],
+.form-signin input[type=password],
+.form-signin input[type=text],
+.form-signin button {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    z-index: 1;
+    position: relative;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.form-signin .form-control:focus {
+    border-color: rgb(104, 145, 162);
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+}
+
+.btn.btn-signin {
+    /*background-color: #4d90fe; */
+    background-color: rgb(104, 145, 162);
+    /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+    padding: 0px;
+    font-weight: 700;
+    font-size: 14px;
+    height: 36px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    -o-transition: all 0.218s;
+    -moz-transition: all 0.218s;
+    -webkit-transition: all 0.218s;
+    transition: all 0.218s;
+}
+
+    .btn.btn-signin:hover,
+    .btn.btn-signin:active,
+    .btn.btn-signin:focus {
+        background-color: rgb(12, 97, 33);
+    }
+
+.forgot-password {
+    color: rgb(104, 145, 162);
+}
+
+    .forgot-password:hover,
+    .forgot-password:active,
+    .forgot-password:focus {
+        color: rgb(12, 97, 33);
+    }
+
+button:disabled{
+    border-color:lightgray;
+    background-color:lightgray;
+}
+
+.dialogdemoBasicUsage #popupContainer {
+  position: relative; }
+
+.dialogdemoBasicUsage .footer {
+  width: 100%;
+  text-align: center;
+  margin-left: 20px; }
+
+.dialogdemoBasicUsage .footer, .dialogdemoBasicUsage .footer > code {
+  font-size: 0.8em;
+  margin-top: 50px; }
+
+.dialogdemoBasicUsage button {
+  width: 200px; }
+
+.dialogdemoBasicUsage div#status {
+  color: #c60008; }
+
+.dialogdemoBasicUsage .dialog-demo-prerendered md-checkbox {
+  margin-bottom: 0; }
+
+
+
+
+/* MODAL STYLES
+-------------------------------*/
+modal {
+    /* modals are hidden by default */
+    display: none;
+ 
+    .modal {
+        /* modal container fixed across whole screen */
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+ 
+        /* z-index must be higher than .modal-background */
+        z-index: 1000;
+         
+        /* enables scrolling for tall modals */
+        overflow: auto;
+ 
+        .modal-body {
+            padding: 20px;
+            background: #fff;
+ 
+            /* margin exposes part of the modal background */
+            margin: 40px;
+        }
+    }
+ 
+    .modal-background {
+        /* modal background fixed across whole screen */
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+ 
+        /* semi-transparent black  */
+        background-color: #000;
+        opacity: 0.75;
+         
+        /* z-index must be below .modal and above everything else  */
+        z-index: 900;
+    }
+}
+ 
+body.modal-open {
+    /* body overflow is hidden to hide main scrollbar when modal window is open */
+    overflow: hidden;
+}
+
+/*Ajustement bouton fenetre parametres*/
+@media (min-width: 600px) {
+    .buttonparam {
+      margin:7px;
+    }
+}
+@media (min-width: 1200px) {
+    .buttonparam {
+      margin-top:5px;
+      margin-left:40px;
+    }
+}
+@media (min-width: 1500px) {
+    .buttonparam {
+      margin-top:5px;
+      margin-left:75px;
+    }
+}
+@media (min-width: 1600px) {
+    .buttonparam {
+      margin-top:5px;
+      margin-left:90px;
+    }
+}
+@media (min-width: 1600px) {
+    .buttonparam {
+      margin-top:5px;
+      margin-left:120px;
+    }
+}
+
+
+/*Ajustement bouton fenetres recherche*/
+.buttonRech {
+      margin:3px;
+    }
+@media (min-width: 400px) {
+    .buttonRech {
+      margin:3px;
+    }
+}
+@media (min-width: 1200px) {
+    .buttonRech {
+      margin-top:5px;
+      margin-left:30px;
+    }
+}
+@media (min-width: 1500px) {
+    .buttonRech {
+      margin-top:5px;
+      margin-left:65px;
+    }
+}
+@media (min-width: 1600px) {
+    .buttonRech {
+      margin-top:5px;
+      margin-left:70px;
+    }
+}
+@media (min-width: 1700px) {
+    .buttonRech {
+      margin-top:5px;
+      margin-left:105px;
+    }
+}
+@media (min-width: 1750px) {
+    .buttonRech {
+      margin-top:5px;
+      margin-left:120px;
+    }
+}
+.small-box:hover {
+    background: rgba(0,0,0,0);
+    color: #3a7999;
+    box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+.notif{
+    color:black;
+    font-weight:bold;
+}
+.box-shadow{
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
+}
+
+

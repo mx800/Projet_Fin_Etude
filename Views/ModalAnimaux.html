@@ -1,0 +1,34 @@
+﻿<!-----------------------------------------------------------------
+----Description: Page qui s'affiche quand nous ajoutons un rendez-
+----vous et que nous devons ajouter un animal pour se rendez-vous.
+----une simple liste des animaux du client que nous avons choisit.
+----Fait par : Maxime Savard et Keven Maltais
+----Le: 2018-02-26
+----Révisé le:___________
+------------------------------------------------------------------>
+
+<md-dialog aria-label="Selection">
+    <form ng-cloak class="form-horizontal  form-group-sm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <p style="font-size:2vmin">Liste des animaux</p>
+                <span flex></span>
+                <div>
+                    <button type="button" class="btn btn-danger" ng-click="cancelModalSelection('useful')">Fermer</button>
+                </div>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover" style="min-width:400px">
+                    <tbody>
+                        <tr ng-click="answerModalDetail(animal)" ng-repeat="animal in Animals">
+                            <td>{{animal.Nom_Animal}}</td>
+                            <td>{{animal.Type}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

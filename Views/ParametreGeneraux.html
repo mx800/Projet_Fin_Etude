@@ -1,0 +1,133 @@
+﻿<!-----------------------------------------------------------------
+----Description: Page pour faire la gestion de tous les parametres
+----et aussi pour les parametres de sauvegardes.
+----Fait par : Maxime Savard et Keven Maltais
+----Le: 2018-02-26
+----Révisé le:___________
+------------------------------------------------------------------>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-info box-shadow">
+                <div class="box-header with-border">
+                    <span class="col-lg-12 col-md-12 col-sm-12" style="padding-right:20px;font-weight:bold; font-size:20px">Paramètres Généraux<button type="button" class="btn btn-danger pull-right" style="margin:3px;width:90px" ng-click="fermer()">Fermer</button></span>
+                </div>
+                <form class="form-horizontal" name="myForm">
+                    <div class="box-body">
+                        <div class="col-md-10">
+                            <div class="box-body row">
+                                <label class="col-sm-2 control-label">Nom du salon:</label>
+                                <div class="col-sm-10">
+                                    <input id="Nom_Salon" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" required ng-pattern="NomRegex" ng-disabled="!modeModifier" ng-model="entreprise.Nom_Salon" name="Nom_Salon" class="form-control ng-pristine">
+                                    <span style="color:red" ng-messages="myForm.Nom_Salon.$error" ng-show="myForm.Nom_Salon.$dirty">
+                                        <span ng-show="myForm.Nom_Salon.$error.required">Nom obligatoire!</span>
+                                        <span ng-show="myForm.Nom_Salon.$error.pattern">Utilisation de caractêres invalides!</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-2 control-label">Adresse:</label>
+                                <div class="col-sm-10">
+                                    <input id="Adresse_Salon" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" ng-minlength="2" ng-maxlength="150" ng-pattern="AdresseRegex" required ng-disabled="!modeModifier" ng-model="entreprise.Adresse_Salon" name="Adresse_Salon" class="form-control ng-pristine">
+                                    <span style="color:red" ng-messages="myForm.Adresse_Salon.$error" ng-show="myForm.Adresse_Salon.$dirty">
+                                        <span ng-show="myForm.Adresse_Salon.$error.required">adresse obligatoire!</span>
+                                        <span ng-show="myForm.Adresse_Salon.$error.pattern">Utilisation de caractêres invalides!</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-2 control-label">Téléphone:</label>
+                                <div class="col-sm-3">
+                                    <input id="Telephone_Salon" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" style="min-width:125px" required ui-mask="(999) 999-9999" ng-disabled="!modeModifier" ng-model="entreprise.Telephone_Salon" type="text" name="Telephone_Salon" class="form-control col-md-3 ng-pristine">
+                                    <span style="color:red" ng-messages="myForm.Telephone_Salon.$error" ng-show="myForm.Telephone_Salon.$dirty">
+                                        <span ng-show="myForm.Telephone_Salon.$error.required">Téléphone obligatoire!</span>
+                                    </span>
+                                </div>
+                                <label class="col-sm-2 control-label">Email:</label>
+                                <div class="col-sm-5">
+                                    <input id="Email_Salon" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" ng-pattern="EmailRegex" ng-disabled="!modeModifier" ng-model="entreprise.Email_Salon" type="text" name="Email_Salon" class="form-control col-md-3 ng-pristine">
+                                    <span style="color:red" ng-messages="myForm.Email_Salon.$error" ng-show="myForm.Email_Salon.$dirty">
+                                        <span ng-show="myForm.Email_Salon.$error.pattern">Adresse email invalide.</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="box-body row">
+
+                                <label class="col-sm-2 control-label">Utilisateur:</label>
+                                <div class="col-sm-3">
+                                    <input id="Nom_Utilisateur" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" style="min-width:125px" ng-pattern="motDePasseRegex" ng-disabled="!modeModifier" ng-model="entreprise.Nom_Utilisateur" type="text" name="Nom_Utilisateur" class="form-control col-md-3 ng-pristine">
+                                    <span style="color:red" ng-messages="myForm.Nom_Utilisateur.$error" ng-show="myForm.Nom_Utilisateur.$dirty">
+                                        <span ng-show="myForm.Nom_Utilisateur.$error.required">Nom obligatoire!</span>
+                                        <span ng-show="myForm.Nom_Utilisateur.$error.pattern">Utilisation de caractêres invalides!</span>
+                                    </span>
+                                </div>
+                                <label class="col-sm-2 control-label">Ville:</label>
+                                <div class="col-sm-5">
+                                    <input id="Ville_Salon" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" ng-pattern="NomRegex" required ng-disabled="!modeModifier" ng-model="entreprise.Ville_Salon" type="text" name="Ville_Salon" class="form-control col-md-3 ng-pristine">
+                                    <span style="color:red" ng-messages="myForm.Ville_Salon.$error" ng-show="myForm.Ville_Salon.$dirty">
+                                        <span ng-show="myForm.Ville_Salon.$error.required">Ville obligatoire!</span>
+                                        <span ng-show="myForm.Ville_Salon.$error.pattern">Utilisation de caractêres invalides!</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-2 control-label">Mot de passe:</label>
+                                <div class="col-sm-3">
+                                    <input id="password" ng-pattern="motDePasseRegex" name="password" required ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" ng-disabled="!modeModifier" ng-model="entreprise.Mot_De_Passe" type="password" class="form-control col-md-3 ng-pristine">
+                                    <span style="color:red" ng-messages="myForm.password.$error" ng-show="myForm.password.$dirty">
+                                        <span ng-show="myForm.password.$error.required">Mot de passe obligatoire!</span>
+                                        <span ng-show="myForm.password.$error.pattern">Utilisation de caractêres invalides!</span>
+                                    </span>
+                                </div>
+                                <label class="col-sm-2 control-label">Code postal:</label>
+                                <div class="col-sm-3">
+                                    <input id="Code_Postal_Salon" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" required style="min-width:125px" ui-mask="A9A-9A9" ng-minlength="7" ng-disabled="!modeModifier" ng-model="entreprise.Code_Postal_Salon" type="text" name="Code_Postal_Salon" class="form-control col-md-3 ng-pristine">
+                                    <span style="color:red" ng-messages="myForm.Code_Postal_Salon.$error" ng-show="myForm.Code_Postal_Salon.$dirty">
+                                        <span ng-show="myForm.Code_Postal_Salon.$error.required">Adresse email invalide.</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-2 control-label">Confirmation:</label>
+                                <div class="col-sm-3">
+                                    <input placeholder="*******" ng-style="{'background' : !modeModifier ? '#eeeeee' : 'rgba(255,0,0,0.7)'}" ng-disabled="!modeModifier" ng-model="Confirmation" type="password" class="form-control ng-pristine">
+                                </div>
+                            </div>
+
+                            <div class="box-header with-border">
+                                <span class="col-lg-12 col-md-12 col-sm-12" style="padding-right:20px;font-weight:bold; font-size:20px; margin-top:20px">Paramètres de sauvegarde</span>
+                            </div>
+                            <div class="box-body row col-sm-12">
+                                <div class="row col-sm-offset-1 col-xs-offset-1">
+                                    <label>Fréquence:</label>
+                                </div>
+                                <div class="row col-sm-offset-1 col-xs-offset-1">
+                                    <label class="radio-inline">
+                                        <input ng-disabled="!modeModifier" ng-model="entreprise.Frequence " ng-checked="entreprise.Frequence == 0" name="frequence" type="radio" value="0">Jour
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input ng-disabled="!modeModifier" ng-model="entreprise.Frequence " ng-checked="entreprise.Frequence == 1" name="frequence" type="radio" value="1">Semaine
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input ng-disabled="!modeModifier" ng-model="entreprise.Frequence " ng-checked="entreprise.Frequence == 2" name="frequence" type="radio" value="2">Mois
+                                    </label>
+                                </div>
+                                <div>
+                                    <button confirm="Voulez-vous effectuer une sauvegarde?" ng-click="postSave()" class="btn btn-success" style="margin-left:112px;margin-top:20px">Effectuer une sauvegarde</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-primary col-lg-10 col-md-2 buttonparam" style="width:100px" ng-click="modifierFunction()" ng-disabled="modeModifier">Modifier</button>
+                            <button type="button" class="btn btn-warning col-lg-10 col-md-2 buttonparam" style="width:100px" ng-click="annulerFunction()" ng-disabled="!modeModifier">Annuler</button>
+                            <button type="submit" class="btn btn-success col-lg-10 col-md-2 buttonparam" style="width:100px" ng-click="EnregistrerModif()" ng-disabled="!modeModifier || !myForm.$valid || Confirmation != entreprise.Mot_De_Passe">Enregistrer</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,34 @@
+﻿<!-----------------------------------------------------------------
+----Description: Page qui s'affiche quand nous ajoutons un rendez-
+----vous et que nous devons ajouter un client pour ce rendez-vous.
+----une simple liste des animaux du client que nous avons choisit.
+----Fait par : Maxime Savard et Keven Maltais
+----Le: 2018-02-26
+----Révisé le:___________
+------------------------------------------------------------------>
+
+<md-dialog aria-label="Selection">
+    <form ng-cloak class="form-horizontal  form-group-sm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <p style="font-size:2vmin">Sélectionner un client</p>
+                <span flex></span>
+                <input placeholder="Recherche" style="max-width:180px;min-width:180px" ng-model="filtre" class="form-control">
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover" style="min-width:400px">
+                    <tbody>
+                        <tr ng-hide="filtre==''" ng-click="answerModalDetail(client)" ng-repeat="client in listeClients | filter:filtre">
+                            <td>{{client.Prenom}} {{client.Nom}}</td>
+                            <td>{{client.Telephone_Principal}}</td>
+                            <td>{{client.Adresse}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" style="display:block; margin:auto" class="btn btn-danger col-offset-5" ng-click="cancelModalSelection('useful')">Fermer</button>
+            </div>           
+        </md-dialog-content>
+    </form>
+</md-dialog>

@@ -1,0 +1,60 @@
+﻿<!-----------------------------------------------------------------
+----Description: Page modal qui sert a ajouter des clients sur la
+----liste d'attente
+----Fait par : Maxime Savard et Keven Maltais
+----Le: 2018-02-26
+----Révisé le:___________
+------------------------------------------------------------------>
+
+<md-dialog aria-label="Gestion liste attente">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <p style="font-size:3vmin">Ajouter un client à la liste d'attente</p>
+                <span flex></span>
+                <input placeholder="Recherche" style="max-width:180px;min-width:180px" ng-model="filtre.$" class="form-control">
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="table-responsive col-md-12" style="height:700px">
+                <table class="table table-striped table-hover" style="min-width:750px">
+                    <thead style="background-color:dimgrey; color:white">
+                        <tr>
+                            <th>No. Client</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Téléphone Principale</th>
+                            <th>Attente Depuis</th>
+                            <th style="text-align:center">En Attente</th>
+                            <th>Note du client en attente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-class="{'selected':$index == selectedRow,'listeBlue':$index % 2 == 1}" ng-click="selectionAttenteModal(i.No_Client,$index, i.Note_Attente)" ng-repeat="i in filtered = (listeClientsModal | filter:filtre) | limitTo:itemsPerPage:itemsPerPage*(currentPage-1)">
+                            <td>{{i.No_Client}}</td>
+                            <td>{{i.Nom}}</td>
+                            <td>{{i.Prenom}}</td>
+                            <td>{{'('+ i.Telephone_Principal.slice(0,3)+') ' + i.Telephone_Principal.slice(3,6) +'-'+i.Telephone_Principal.slice(6,10) }}</td>
+                            <td>{{i.Attente_Depuis}}</td>
+                            <td style="text-align:center">{{i.En_Attente == 1 ? 'Oui' : 'Non'}}</td>
+                            <td style="text-align:center"><textarea style="width:350px" ng-model="i.Note_Attente"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ul uib-pagination total-items="filtered.length" max-size="5" boundary-links="true" first-text="«" last-text="»" force-ellipses="true" rotate="true" ng-click="unSelectRow()" ng-model="currentPage" ng-change="pageChanged()" previous-text="‹" next-text="›"></ul>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-warn md-button md-ink-ripple" ng-click="cancel('useful')">
+                Annuler
+            </md-button>
+            <md-button class="md-raised md-primary md-button md-ink-ripple" ng-disabled="!ModeAttente" ng-click="answer('useful')">
+                OK
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+

@@ -1,0 +1,147 @@
+﻿<!-----------------------------------------------------------------
+----Description: Page de menu qui sert a parcourir l'ensemble du site.
+----Fait par : Maxime Savard et Keven Maltais
+----Le: 2018-02-26
+----Révisé le:___________
+------------------------------------------------------------------>
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Menu Principal</h1>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-lg-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a href="RechercheClients">
+                <div class="small-box bg-aqua box-shadow">
+                    <div class="inner small-box" style="height: 124px;">
+                        <h3 class="hide-sm hide-xs" style="font-size:2.5vw">Clients</h3>
+                        <h5 class="notif hide-sm hide-xs">{{nbrClient}} clients</h5>
+                    </div>
+                    <span class="icon info-box-icon">
+                        <i class="fa fa-address-card-o text-black" style="margin-top:15px"></i>
+                    </span>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a href="RechercheAnimaux">
+                <div class="small-box bg-fuchsia box-shadow">
+                    <div class="inner small-box" style="height: 124px;">
+                        <h3 class="hide-sm hide-xs"  style="font-size:2.5vw">Animaux</h3>
+                        <h5 class="notif hide-sm hide-xs">{{nbrAnimaux}} animaux</h5>
+                    </div>
+                    <span  class="icon info-box-icon">
+                        <i class="fa fa-paw text-black" style="margin-top:15px"></i>
+                    </span>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a href="RechercheRDV">
+                <div class="small-box bg-blue box-shadow">
+                    <div class="inner small-box" style="height: 124px;">
+                        <h3 class="hide-sm hide-xs"  style="font-size:2.5vw">Rendez-Vous</h3>
+                    </div>
+                    <span class="icon info-box-icon">
+                        <i class="fa fa-thumb-tack text-black" style="margin-top:15px"></i>
+                    </span>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a href="Calendrier">
+                <div class="small-box bg-green box-shadow">
+                    <div class="inner small-box" style="height: 124px;">
+                        <h3 class="hide-sm hide-xs"  style="font-size:2.5vw">Calendrier</h3>
+                        <h5 class="notif hide-sm hide-xs">{{nbrRdvPourLaSemaine}} rdv pour la semaine</h5>
+                    </div>
+                    <span class="icon info-box-icon">
+                        <i class="fa fa-calendar text-black" style="margin-top:15px"></i>
+                    </span>
+                </div>
+            </a>
+        </div>
+        <!-- ./col -->
+        <!-- ./col -->
+
+        <div class="col-lg-4 col-sm-6 col-xs-12" style="height: -116px;">
+            <!-- small box -->
+            <a href="Anniversaire">
+                <div class="small-box bg-orange box-shadow">
+                    <div class="inner small-box" style="height: 124px;">
+                        <h3 class="hide-sm hide-xs"  style="font-size:2.5vw">Anniversaire</h3>
+                        <h5 class="notif hide-sm hide-xs">{{nbrFete}} anniversaire</h5>
+                        <h5 class="notif hide-sm hide-xs">Pour les 7 prochains jours</h5>
+                    </div>
+                    <span class="icon info-box-icon">
+                        <i class="fa fa-birthday-cake  text-black" style="margin-top:15px"></i>
+                    </span>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-xs-12" style="height: -116px;">
+            <!-- small box -->
+            <a href="ListeAttente">
+                <div class="small-box bg-teal box-shadow">
+                    <div class="inner small-box" style="height: 124px;">
+                        <h3 class="hide-sm hide-xs"  style="font-size:2.5vw">Attente</h3>
+                        <h5 class="notif hide-sm hide-xs">{{nbrAttente}} clients en attente</h5>
+                    </div>
+                    <span  class="icon info-box-icon">
+                        <i class="fa fa-edit text-black" style="margin-top:15px"></i>
+                    </span>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-xs-12" style="height: -116px;">
+            <!-- small box -->
+            <a href="">
+                <div class="small-box bg-purple box-shadow" ng-click="printdiv()">
+                    <div class="inner small-box" style="height: 124px;">
+                        <h3 class="hide-sm hide-xs"  style="font-size:2.5vw">Formulaire</h3>
+                        <h3 class="hide-sm hide-xs"  style="font-size:2.5vw">vierge</h3>
+                    </div>
+                    <span  class="icon info-box-icon">
+                        <i class="fa fa-print text-black" style="margin-top:15px"></i>
+                    </span>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a href="ParametreGeneraux">
+                <div class="small-box bg-yellow box-shadow" >
+                    <div class="inner small-box" style="height: 124px;">
+                        <h3 class="hide-sm hide-xs"  style="font-size:2.5vw">Paramètres</h3>
+                        <h5 class="notif hide-sm hide-xs">Prochaine sauvegarde:</h5>
+                        <h5 class="notif hide-sm hide-xs">{{entreprise.DateSauvegarde }}</h5>
+                    </div>
+                    <span class="icon info-box-icon">
+                        <i class="fa fa-cog fa-fw text-black" style="margin-top:15px"></i>
+                    </span>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-xs-12" style="height: -116px;">
+            <!-- small box -->
+            <a ng-click="del_cookie()" href="Quitter">
+                <div class="small-box bg-red box-shadow">
+                    <div class="inner small-box" style="height: 124px;">
+                        <h3 class="hide-sm hide-xs"  style="font-size:2.5vw">Quitter</h3>
+                    </div>
+                    <span class="icon info-box-icon">
+                        <i class="fa fa-sign-out text-black" style="margin-top:15px"></i>
+                    </span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

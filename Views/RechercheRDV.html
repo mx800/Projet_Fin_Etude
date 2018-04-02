@@ -1,0 +1,80 @@
+﻿<!-----------------------------------------------------------------
+----Description: Page qui sert a faire la recherche d'un rendez-vous
+----dans la base de données.
+----Fait par : Maxime Savard et Keven Maltais
+----Le: 2018-02-26
+----Révisé le:___________
+------------------------------------------------------------------>
+
+<section class="content">
+    <div class="box box-info box-shadow">
+        <div class="box-header with-border">
+            <span class="col-lg-12 col-md-12 col-sm-12" style="padding-right:20px;font-weight:bold; font-size:20px">Liste des rendez-vous<a href="Menu"><button type="button" class="btn btn-danger pull-right" style="margin:3px;width:90px">Fermer</button></a></span>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="dataTables_filter">
+                                <div class="form-group form-group-sm">
+                                    <div class="col-lg-12 col-md-12 ">
+                                        <div class="col-lg-6">
+                                            <input placeholder="Recherche" style="max-width:150px;min-width:150px" ng-model="filtre.$" class="form-control">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label class="radio-inline">
+                                                <input ng-click="reloadListe()" ng-change="frequencefunc()" ng-model="frequence" ng-checked="frequence=='Futur'" ng-init="frequence='Futur'" name="type" type="radio" value="Futur">Futur
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input ng-click="reloadListe()" ng-change="frequencefunc()" ng-model="frequence" ng-checked="frequence=='Anterieur'" name="type" type="radio" value="Anterieur">Antérieur
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="table-responsive col-md-10" style="height:650px">
+                <table class="table table-striped table-hover" style="min-width:900px">
+                    <thead style="background-color:dimgrey; color:white">
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Téléphone</th>
+                            <th>Nom Animal</th>
+                            <th style="text-align: center">Date</th>
+                            <th style="text-align: center">Heure Début</th>
+                            <th style="text-align: center">Heure Fin</th>
+                            <th>Services</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-class="{'selected':$index == selectedRow,'listeBlue':$index % 2 == 1}" ng-click="selectionRDV(i.No_Rdv,$index)" ng-repeat="i in filtered = (listeRdv | filter:filtre) | limitTo:itemsPerPage:itemsPerPage*(currentPage-1)">
+                            <td>{{i.Nom}}</td>
+                            <td>{{i.Prenom}}</td>
+                            <td>{{'('+ i.Telephone_Principal.slice(0,3)+') ' + i.Telephone_Principal.slice(3,6) +'-'+i.Telephone_Principal.slice(6,10) }}</td>
+                            <td>{{i.Nom_Animal}}</td>
+                            <td style="text-align: center">{{i.Date_Rdv}}</td>
+                            <td style="text-align: center">{{i.Heure_Debut.slice(0,5)}}</td>
+                            <td style="text-align: center">{{i.Heure_Fin.slice(0,5)}}</td>
+                            <td><div ng-repeat="serv in i.Service"><div>{{serv.Nom_Service}}</div></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-2">
+                <button ng-disabled="!selected" type="button" ng-click="ficheClient()" class="btn btn-primary col-lg-10 col-md-2 buttonRech" style="width:120px">Fiche Client</button>
+                <button ng-disabled="!selected" type="button" ng-click="ficheAnimaux()" class="btn btn-primary col-lg-10 col-md-2 buttonRech" style="width:120px">Fiche Animal</button>
+                <button ng-disabled="!selected" type="button" ng-click="loadrdvFunction($event,'RDV')" class="btn btn-primary col-lg-10 col-md-2 buttonRech" style="width:120px">Consulter RDV</button>
+            </div>
+            <div class="col-md-12">
+                <ul uib-pagination total-items="filtered.length" max-size="5" boundary-links="true" first-text="«" last-text="»" force-ellipses="true" rotate="true" ng-click="unSelectRow()" ng-model="currentPage" ng-change="pageChanged()" previous-text="‹" next-text="›"></ul>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>      

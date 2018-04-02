@@ -1,0 +1,258 @@
+﻿<!-----------------------------------------------------------------
+----Description: Page pour la gestion et la consultation des animaux
+----et des traitements.
+----Fait par : Maxime Savard et Keven Maltais
+----Le: 2018-02-26
+----Révisé le:___________
+------------------------------------------------------------------>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-info box-shadow">
+                <div class="box-header with-border">
+                    <span class="col-lg-12 col-md-12 col-sm-12" style="padding-right:20px;font-weight:bold; font-size:20px">Fiche Animal<button type="button" class="btn btn-danger pull-right" style="margin:3px;width:90px" ng-click="fermer()">Fermer</button></span>
+                </div>
+                <form name="myForm" class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group form-group-sm col-md-5 row">
+                            <div class="box-body row">
+                                <label class="col-sm-3 control-label">Propriétaire:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" disabled value="{{selectedClient.Prenom}} {{selectedClient.Nom}}">
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-3 control-label">Adresse:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" disabled value="{{selectedClient.Adresse}}">
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-3 control-label">Téléphone:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" ui-mask="(999) 999-9999" disabled ng-model="selectedClient.Telephone_Principal">
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-3 control-label">Nom:</label>
+                                <div class="col-sm-9">
+                                    <input id="Nom_Animal" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" ng-pattern="NomRegex" required name="Nom" class="form-control" ng-readonly="!modeModifier" ng-model="ficheAnimal.Nom_Animal">
+                                    <span style="color:red" ng-messages="myForm.Nom.$error" ng-show="myForm.Nom.$dirty">
+                                        <span ng-show="myForm.Nom.$error.required">Nom obligatoire!</span>
+                                        <span ng-show="myForm.Nom.$error.pattern">Utilisation de caractêres invalides!</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-3 control-label">Naissance:</label>
+                                <div class="col-sm-9">
+                                    <input required id="DatePick" ng-style="{'background' : !modeModifier ? '#eeeeee' : '#e8fbfe'}" name="DatePick" type="date" max="{{date_max | date: 'yyyy-MM-dd'}}" class="form-control" ng-readonly="!modeModifier" ng-model="date_Naissance">
+                                    <span style="color:red" ng-messages="myForm.DatePick.$error" ng-show="myForm.DatePick.$dirty">
+                                        <span ng-show="myForm.DatePick.$error.required">Date de naissance obligatoire!</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="box-body row">
+                                <label class="col-sm-3 control-label">Race:</label>
+                                <div class="col-sm-9">
+                                    <input ng-pattern="NomRegex" name="Race" class="form-control" ng-readonly="!modeModifier" ng-model="ficheAnimal.Race">
+                                    <span style="color:red" ng-messages="myForm.Race.$error" ng-show="myForm.Race.$dirty">
+                                        <span ng-show="myForm.Race.$error.pattern">Utilisation de caractêres invalides!</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm col-md-6 row">
+                            <div class="col-sm-10">
+                                <label class="control-label">Maladies et autres:</label>
+                            </div>
+                            <textarea class="form-control" rows="3" placeholder="Entrer... " ng-readonly="!modeModifier" ng-model="ficheAnimal.Maladie_Autres"></textarea>
+                            <div class="col-sm-10">
+                                <label class="control-label">Spécification:</label>
+                            </div>
+                            <textarea class="form-control" rows="3" placeholder="Entrer... " ng-readonly="!modeModifier" ng-model="ficheAnimal.Specifications"></textarea>
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="col-sm-10">
+                                        <label class="control-label">Comportement:</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="radio-inline">
+                                            <input name="comportement" type="radio" ng-disabled="!modeModifier" ng-checked="ficheAnimal.Comportement=='V'" ng-init="ficheAnimal.Comportement='V'" ng-model="ficheAnimal.Comportement" value="V">Vert
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input name="comportement" type="radio" ng-disabled="!modeModifier" ng-checked="ficheAnimal.Comportement=='J'" ng-model="ficheAnimal.Comportement" value="J">Jaune
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input name="comportement" type="radio" ng-disabled="!modeModifier" ng-checked="ficheAnimal.Comportement=='R'" ng-model="ficheAnimal.Comportement" value="R">Rouge
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-sm-10">
+                                        <label class="control-label">Autres:</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="Vacciner" ng-click="ficheAnimal.Vacciner==1? ficheAnimal.Vacciner=0:ficheAnimal.Vacciner=1" ng-disabled="!modeModifier" ng-checked="ficheAnimal.Vacciner==1? true:false">Vacciné
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="Operer" ng-click="ficheAnimal.Operer==1? ficheAnimal.Operer=0:ficheAnimal.Operer=1" ng-disabled="!modeModifier" ng-checked="ficheAnimal.Operer==1? true:false">Opéré
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="Diplome" ng-click="ficheAnimal.Diplome==1? ficheAnimal.Diplome=0:ficheAnimal.Diplome=1" ng-disabled="!modeModifier" ng-checked="ficheAnimal.Diplome==1? true:false">Diplome
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="col-sm-10">
+                                        <label class="control-label">Type:</label>
+                                    </div>
+                                    <div class="col-md-12" ng-click="initCanvas()">
+                                        <label class="radio-inline">
+                                            <input name="type" type="radio" ng-disabled="!modeModifier" ng-checked="ficheAnimal.Type=='Chien'" ng-init="ficheAnimal.Type='Chien'" ng-model="ficheAnimal.Type" value="Chien">Chien
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input name="type" type="radio" ng-disabled="!modeModifier" ng-checked="ficheAnimal.Type=='Chat'" ng-model="ficheAnimal.Type" value="Chat">Chat
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-sm-10">
+                                        <label class="control-label">Sexe:</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="radio-inline">
+                                            <input name="sexe" type="radio" ng-disabled="!modeModifier" ng-checked="ficheAnimal.Sexe=='F'" ng-model="ficheAnimal.Sexe" value="F">Femelle
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input name="sexe" type="radio" ng-disabled="!modeModifier" ng-checked="ficheAnimal.Sexe=='M'" ng-init="ficheAnimal.Sexe='M'" ng-model="ficheAnimal.Sexe" value="M">Male
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 row" style="margin-left:20px; margin-top:10px">
+                            <button type="button" class="btn btn-primary" style="margin:3px;width:90px" ng-click="modifierFunction()" ng-disabled="modeModifier">Modifier</button>
+                            <button type="button" class="btn btn-warning" style="margin:3px;width:90px" ng-click="annulerFunction()" ng-disabled="!modeModifier">Annuler</button>
+                            <button type="button" class="btn btn-success" style="margin:3px;width:90px" ng-click="enregistrerFunction()" ng-disabled="!modeModifier || !myForm.$valid">Enregistrer</button>
+                            <button type="button" class="btn btn-danger" style="margin:3px;width:90px" ng-disabled="modeModifier" ng-click="supprimerFunction()" confirm="Voulez-vous supprimer cet animal? {{ficheAnimal.Nom_Animal}}">Suprimer</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- /.box-body -->
+            <div class="box box-info box-shadow">
+                <div class="box-header">
+                    <div class="row">
+                        <div style="margin-left:20px">
+                            <span style="padding-right:20px;font-weight:bold; font-size:20px">Traitement</span>
+                            <button type="button" class="btn btn-success" ng-disabled="nouveauAnimal" ng-click="newdetailFunction()">+ Ajouter un traitement</button>
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs" ng-hide="nouveauAnimal">
+                    <!--<li ng-show="dateDetail.length>2">
+                        <a href="" ng-click="previousDetailFunction()"><<</a>
+                    </li>-->
+                    <li ng-class="{'active':selectedDetail.No_Detail==no.No_Detail}" ng-repeat="no in dateDetail">
+                        <a href="" ng-click="selectDetailFunction(no)">{{no.Date_Detail}}</a>
+                    </li>
+                    <!--<li ng-show="dateDetail.length>2" >
+                        <a href="" ng-click="nextDetailFunction()">>></a>
+                    </li>-->
+                </ul>
+
+                <div class="col-md-12" ng-hide="nouveauAnimal">
+                    <center>
+                        <canvas ng-click="focusFunction()" id="canvas" style="margin:10px;"></canvas>
+                    </center>
+                </div>
+                <form class="form-horizontal" name="TraitementForm" ng-hide="nouveauAnimal">
+                    <div class="box-body">
+                        <div  ng-class="(ficheAnimal.Type=='Chat')? 'col-md-offset-3': ''">
+                            <div class="form-group form-group-sm row col-md-5">
+                                <div class="box-body row">
+                                    <label class="col-sm-2 control-label">1:</label>
+                                    <div class="col-sm-10">
+                                        <input name="un" class="form-control" id="un" ng-disabled="!modeModifierDetail" ng-model="Detail.Un" style="border:1px solid #53b8cf">
+
+                                    </div>
+                                </div>
+                                <div class="box-body row">
+                                    <label class="col-sm-2 control-label">2:</label>
+                                    <div class="col-sm-10">
+                                        <input name="deux" class="form-control" id="deux" ng-disabled="!modeModifierDetail" ng-model="Detail.Deux" style="border:1px solid #db0ead">
+                                    </div>
+                                </div>
+                                <div class="box-body row">
+                                    <label class="col-sm-2 control-label">3:</label>
+                                    <div class="col-sm-10">
+                                        <input name="trois" class="form-control" id="trois" ng-disabled="!modeModifierDetail" ng-model="Detail.Trois" style="border:1px solid #fa6e18">
+                                    </div>
+                                </div>
+                                <div class="box-body row">
+                                    <label class="col-sm-2 control-label">4:</label>
+                                    <div class="col-sm-10">
+                                        <input name="quatre" class="form-control" id="quatre" ng-disabled="!modeModifierDetail" ng-model="Detail.Quatre" style="border:1px solid #7a9dee">
+                                    </div>
+                                </div>
+                                <div class="box-body row">
+                                    <label class="col-sm-2 control-label">5:</label>
+                                    <div class="col-sm-10">
+                                        <input name="cinq" class="form-control" id="cinq" ng-disabled="!modeModifierDetail" ng-model="Detail.Cinq" style="border:1px solid #8337b6">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm col-md-5 row" ng-if="ficheAnimal.Type=='Chien'">
+                                <div class="box-body row">
+                                    <label class="col-sm-2 control-label">6:</label>
+                                    <div class="col-sm-10">
+                                        <input name="six" class="form-control" id="six" ng-disabled="!modeModifierDetail" ng-model="Detail.Six" style="border:1px solid #e3d44d">
+                                    </div>
+                                </div>
+                                <div class="box-body row">
+                                    <label class="col-sm-2 control-label">7:</label>
+                                    <div class="col-sm-10">
+                                        <input name="sept" class="form-control" id="sept" ng-disabled="!modeModifierDetail" ng-model="Detail.Sept" style="border:1px solid #7acf53">
+                                    </div>
+                                </div>
+                                <div class="box-body row">
+                                    <label class="col-sm-2 control-label">8:</label>
+                                    <div class="col-sm-10">
+                                        <input name="huit" class="form-control" id="huit" ng-disabled="!modeModifierDetail" ng-model="Detail.Huit" style="border:1px solid #7acf53">
+                                    </div>
+                                </div>
+                                <div class="box-body row">
+                                    <label class="col-sm-2 control-label">9:</label>
+                                    <div class="col-sm-10">
+                                        <input name="neuf" class="form-control" id="neuf" ng-disabled="!modeModifierDetail" ng-model="Detail.Neuf" style="border:1px solid #00a65a">
+                                    </div>
+                                </div>
+                                <div class="box-body row">
+                                    <label class="col-sm-2 control-label">10:</label>
+                                    <div class="col-sm-10">
+                                        <input name="dix" class="form-control" id="dix" ng-disabled="!modeModifierDetail" ng-model="Detail.Dix" style="border:1px solid #f39c12">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm col-md-1 row" style="margin-left:20px; margin-top:10px">
+                                <button type="button" class="btn btn-primary col-md-12" style="margin:3px;width:90px" ng-click="modifierDetailFunction()" ng-disabled="modeModifierDetail">Modifier</button>
+                                <button type="button" class="btn btn-warning col-md-12" style="margin:3px;width:90px" ng-click="annulerDetailFunction()" ng-disabled="!modeModifierDetail">Annuler</button>
+                                <button type="button" class="btn btn-success col-md-12" style="margin:3px;width:90px" ng-click="savedetailFunction()" ng-disabled="!modeModifierDetail || !TraitementForm.$valid">Enregistrer</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- /.row -->
+    </div>
+</section>
+<!-- /.content -->

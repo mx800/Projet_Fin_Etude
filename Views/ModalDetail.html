@@ -1,0 +1,63 @@
+﻿<!-----------------------------------------------------------------
+----Description: Page qui s'affiche quand nous ajoutons un rendez-
+----vous et que nous avons deja choisit un animal et choisit comme
+----rendez-vous tonte et toilettage la selection du détail du
+----traitement.
+----Fait par : Maxime Savard et Keven Maltais
+----Le: 2018-02-26
+----Révisé le:___________
+------------------------------------------------------------------>
+<style>
+    .ChatInit{
+         margin-left:70px;
+    }
+    .Chat{
+        visibility:hidden;
+        display:none;     
+    }
+</style>
+<md-dialog aria-label="Selection">
+    <form ng-cloak class="form-horizontal  form-group-sm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <p style="font-size:2vmin">Date des dernier détails de l'animal</p>
+                <span flex></span>
+                <div>
+                    <button type="button" class="btn btn-danger" ng-click="cancelModalSelection('useful')">Fermer</button>
+                </div>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover" style="min-width:500px">
+                    <tbody>
+                        <tr ng-click="answerModalDetail(d)" ng-repeat="d in dateDetail">
+                            <td>
+                                <a href="" tooltip-append-to-body="true" tooltips tooltip-side="right" tooltip-template='
+
+                                <div style="width:350px; height:300px">
+                                <img style="witdh:200px;Height:200px;float:left" src="images/{{(Animal.Type=="Chat")? "chat":"chien"}}.png" />
+                                <div class="col-sm-5 pull-left {{(Animal.Type=="Chat")? "ChatInit":""}}" style="text-align:left">
+                                <div>1: {{ d.Un}}</div>
+                                <div>2: {{ d.Deux}}</div>
+                                <div>3: {{ d.Trois}}</div>
+                                <div>4: {{ d.Quatre}}</div>
+                                <div>5: {{ d.Cinq}}</div>
+                                </div>
+                                <div class="col-sm-5 pull-left {{Animal.Type}}" style="text-align:left">
+                                <div>6: {{ d.Six}}</div>
+                                <div>7: {{ d.Sept}}</div>
+                                <div>8: {{ d.Huit}}</div>
+                                <div>9: {{ d.Neuf}}</div>
+                                <div>10: {{ d.Dix}}</div>
+                                </div>
+                                </div> 
+                                '>{{d.Date_Detail}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>
